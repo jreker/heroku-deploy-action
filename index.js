@@ -1,7 +1,6 @@
 const { execSync } = require("child_process");
 const core = require("@actions/core");
 const github = require('@actions/github');
-const { Cipher } = require("crypto");
 
 
 const HEROKU_API_KEY = core.getInput('HEROKU_API_KEY');
@@ -16,6 +15,22 @@ console.log("MAIL ", MAIL);
 
 
 
+function addHerokuGitRemote() {
+
+    try{
+        execSync("heroku git:remote --app " + APP_NAME);
+        console.log("Added heroku remote repo");
+    }catch(error) {
+        console.log("WARNING: Cannot add remote repo");
+        execSync("heroku create " + APP_NAME);
+        console.log("Created heroku app " + APP_NAME);
+    }
+
+
+}
+
+
+
 try {
 
     execSync(`cat >~/.netrc <<EOF
@@ -27,20 +42,17 @@ try {
         password ${HEROKU_API_KEY}
     EOF`);
 
-
-
-    execSync("ls -la");
+    execSync("export HEROKU_API_KEY=" + HEROKU_API_KEY);
 
     execSync("heroku --version");
 
-    execSync("heroku plugins:install java");
-
-    execSync("export HEROKU_API_KEY=" + HEROKU_API_KEY);
-
-    execSync("heroku create " + APP_NAME);
-
-    execSync("heroku deploy:jar " + ARTIFACT_NAME + " --app " + APP_NAME);
+    addHerokuGitRemote();
+    
+    execSync("git push heroku master");
+    //execSync("heroku deploy:jar " + ARTIFACT_NAME + " --app " + APP_NAME);
 
 } catch (error) {
+    
+    execSync("heroku create " + APP_NAME);
     core.setFailed(error.message);
 }
