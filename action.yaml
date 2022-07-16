@@ -1,14 +1,11 @@
 name: 'heroku-deploy-action'
-description: 'Minimalistic action to deploy a java app to your Heroku account.'
+description: 'Minimalistic action to deploy your app to your Heroku account.'
 inputs:
   HEROKU_API_KEY:
     description: 'The API key for your Heroku account. Found under settings on Heroku platform.'
     required: true
   APP_NAME:
     description: 'The APP Name you want to have in Heroku'
-    required: true
-  ARTIFACT_NAME:
-    description: 'The name of the artifact in workspace'
     required: true
   MAIL:
     description: 'Your mail address for heroku login'

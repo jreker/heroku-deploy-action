@@ -49,8 +49,6 @@ try {
     addHerokuGitRemote();
     
     execSync("git push heroku master");
-    //execSync("heroku deploy:jar " + ARTIFACT_NAME + " --app " + APP_NAME);
-
 } catch (error) {
     
     execSync("heroku create " + APP_NAME);
