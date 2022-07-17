@@ -10,6 +10,9 @@ inputs:
   MAIL:
     description: 'Your mail address for heroku login'
     required: true
+  BRANCH_NAME:
+    description: 'The name of the Branch you want to Deploy'
+    required: true
 runs:
   using: 'node16'
   main: 'index.js'
