@@ -5,12 +5,14 @@ const github = require('@actions/github');
 
 const HEROKU_API_KEY = core.getInput('HEROKU_API_KEY');
 const APP_NAME = core.getInput('APP_NAME');
-const ARTIFACT_NAME = core.getInput('ARTIFACT_NAME');
+const BRANCH_NAME = core.getInput('BRANCH_NAME');
 const MAIL = core.getInput('MAIL');
+
+
 
 console.log("API_KEY ", HEROKU_API_KEY);
 console.log("APP_NAME ", APP_NAME);
-console.log("ARTIFACT_NAME ", ARTIFACT_NAME);
+console.log("BRANCH_NAME ", BRANCH_NAME);
 console.log("MAIL ", MAIL);
 
 
@@ -48,7 +50,7 @@ try {
 
     addHerokuGitRemote();
     
-    execSync("git push -f heroku master");
+    execSync("git push -f heroku " + BRANCH_NAME);
 } catch (error) {
     
     execSync("heroku create " + APP_NAME);
