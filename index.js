@@ -8,17 +8,12 @@ const APP_NAME = core.getInput('APP_NAME');
 const BRANCH_NAME = core.getInput('BRANCH_NAME');
 const MAIL = core.getInput('MAIL');
 
-
-
 console.log("API_KEY ", HEROKU_API_KEY);
 console.log("APP_NAME ", APP_NAME);
 console.log("BRANCH_NAME ", BRANCH_NAME);
 console.log("MAIL ", MAIL);
 
-
-
 function addHerokuGitRemote() {
-
     try{
         execSync("heroku git:remote --app " + APP_NAME);
         console.log("Added heroku remote repo");
@@ -27,8 +22,6 @@ function addHerokuGitRemote() {
         execSync("heroku create " + APP_NAME);
         console.log("Created heroku app " + APP_NAME);
     }
-
-
 }
 
 
