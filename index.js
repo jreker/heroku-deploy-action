@@ -43,9 +43,7 @@ try {
 
     addHerokuGitRemote();
     
-    execSync("git push -f heroku " + BRANCH_NAME);
+    execSync("git push -f heroku " + BRANCH_NAME + ":master");
 } catch (error) {
-    
-    execSync("heroku create " + APP_NAME);
     core.setFailed(error.message);
 }
